@@ -1,0 +1,87 @@
+Table user {
+  id int [pk, increment] // auto-increment
+  first_name varchar
+  last_name varchar
+  username varchar
+  email varchar
+  password char
+  created_at timestamp
+  updated_at timestamp
+}
+Table role{
+  id int [pk, increment]
+  name varchar
+  description varchar
+  previleges varchar
+  created_at timestamp
+  updated_at timestamp
+}
+Table category {
+  id int [pk, increment]
+  name varchar
+  description varchar
+  created_at timestamp
+  updated_at timestamp
+}
+Table idea{
+  id int [pk, increment]
+  title varchar
+  description varchar
+  meta_title varchar
+  meta_description varchar
+  meta_robots varchar
+  created_at timestamp
+  updated_at timestamp
+}
+Table comment{
+  id int [pk,increment]
+  title varchar
+  message varchar
+  meta_title varchar
+  meta_description varchar
+  meta_robots varchar
+  created_at timestamp
+  updated_at timestamp
+}
+Table user_comment{
+  id int [pk,increment]
+  user_id int [ref: > user.id]
+  comment_id int [ref: > comment.id]
+  created_at timestamp
+  updated_at timestamp
+}
+Table idea_comment{
+  id int [pk,increment]
+  idea_id int [ref: > idea.id]
+  comment_id int [ref: > comment.id]
+  created_at timestamp
+  updated_at timestamp
+}
+Table user_category{
+  id int [pk, increment]
+  user_id int [ref: > user.id]
+  category_id int [ref: > category.id]
+  created_at timestamp
+  updated_at timestamp
+}
+Table user_role{
+  id int [pk, increment]
+  user_id int [ref: - user.id]
+  role_id int [ref: - role.id]
+  created_at timestamp
+  updated_at timestamp
+}
+Table user_idea{
+  id int [pk, increment]
+  user_id int [ref: - user.id]
+  idea_id int [ref: < idea.id]
+  created_at timestamp
+  updated_at timestamp
+}
+Table user_user_map{
+  id int [pk, increment]
+  user_1 int [ref: < user.id]
+  user_2 int [ref: < user.id]
+  created_at timestamp
+  updated_at timestamp
+}

@@ -1,0 +1,121 @@
+CREATE TABLE "user" (
+  "id" SERIAL PRIMARY KEY,
+  "first_name" varchar,
+  "last_name" varchar,
+  "username" varchar,
+  "email" varchar,
+  "password" char,
+  "created_at" timestamp,
+  "updated_at" timestamp
+);
+
+CREATE TABLE "role" (
+  "id" SERIAL PRIMARY KEY,
+  "name" varchar,
+  "description" varchar,
+  "previleges" varchar,
+  "created_at" timestamp,
+  "updated_at" timestamp
+);
+
+CREATE TABLE "category" (
+  "id" SERIAL PRIMARY KEY,
+  "name" varchar,
+  "description" varchar,
+  "created_at" timestamp,
+  "updated_at" timestamp
+);
+
+CREATE TABLE "idea" (
+  "id" SERIAL PRIMARY KEY,
+  "title" varchar,
+  "description" varchar,
+  "meta_title" varchar,
+  "meta_description" varchar,
+  "meta_robots" varchar,
+  "created_at" timestamp,
+  "updated_at" timestamp
+);
+
+CREATE TABLE "comment" (
+  "id" SERIAL PRIMARY KEY,
+  "title" varchar,
+  "message" varchar,
+  "meta_title" varchar,
+  "meta_description" varchar,
+  "meta_robots" varchar,
+  "created_at" timestamp,
+  "updated_at" timestamp
+);
+
+CREATE TABLE "user_comment" (
+  "id" SERIAL PRIMARY KEY,
+  "user_id" int,
+  "comment_id" int,
+  "created_at" timestamp,
+  "updated_at" timestamp
+);
+
+CREATE TABLE "idea_comment" (
+  "id" SERIAL PRIMARY KEY,
+  "idea_id" int,
+  "comment_id" int,
+  "created_at" timestamp,
+  "updated_at" timestamp
+);
+
+CREATE TABLE "user_category" (
+  "id" SERIAL PRIMARY KEY,
+  "user_id" int,
+  "category_id" int,
+  "created_at" timestamp,
+  "updated_at" timestamp
+);
+
+CREATE TABLE "user_role" (
+  "id" SERIAL PRIMARY KEY,
+  "user_id" int,
+  "role_id" int,
+  "created_at" timestamp,
+  "updated_at" timestamp
+);
+
+CREATE TABLE "user_idea" (
+  "id" SERIAL PRIMARY KEY,
+  "user_id" int,
+  "idea_id" int,
+  "created_at" timestamp,
+  "updated_at" timestamp
+);
+
+CREATE TABLE "user_user_map" (
+  "id" SERIAL PRIMARY KEY,
+  "user_1" int,
+  "user_2" int,
+  "created_at" timestamp,
+  "updated_at" timestamp
+);
+
+ALTER TABLE "user_comment" ADD FOREIGN KEY ("user_id") REFERENCES "user" ("id");
+
+ALTER TABLE "user_comment" ADD FOREIGN KEY ("comment_id") REFERENCES "comment" ("id");
+
+ALTER TABLE "idea_comment" ADD FOREIGN KEY ("idea_id") REFERENCES "idea" ("id");
+
+ALTER TABLE "idea_comment" ADD FOREIGN KEY ("comment_id") REFERENCES "comment" ("id");
+
+ALTER TABLE "user_category" ADD FOREIGN KEY ("user_id") REFERENCES "user" ("id");
+
+ALTER TABLE "user_category" ADD FOREIGN KEY ("category_id") REFERENCES "category" ("id");
+
+ALTER TABLE "user_role" ADD FOREIGN KEY ("user_id") REFERENCES "user" ("id");
+
+ALTER TABLE "user_role" ADD FOREIGN KEY ("role_id") REFERENCES "role" ("id");
+
+ALTER TABLE "user_idea" ADD FOREIGN KEY ("user_id") REFERENCES "user" ("id");
+
+ALTER TABLE "idea" ADD FOREIGN KEY ("id") REFERENCES "user_idea" ("idea_id");
+
+ALTER TABLE "user" ADD FOREIGN KEY ("id") REFERENCES "user_user_map" ("user_1");
+
+ALTER TABLE "user" ADD FOREIGN KEY ("id") REFERENCES "user_user_map" ("user_2");
